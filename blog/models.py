@@ -12,7 +12,7 @@ class Post(models.Model):
     slug = models.SlugField(max_length= 100 ,blank =True)
     intro = models.CharField(max_length=150)
     description = models.TextField()
-    image = models.ImageField(upload_to= 'blog/'  )
+    image = models.ImageField(upload_to= 'static/media/blog/'  )
     date_added = models.DateTimeField(auto_now_add =True)
 
     def __str__(self):
