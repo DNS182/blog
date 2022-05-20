@@ -1,0 +1,18 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} REGISTER {% endblock title %}
+{% block search %}{% endblock search %}    
+{% block content %}
+    <h2 class = 'tm-color-primary text-center'>JOIN US</h2>
+    <form method="post">
+        <div style='color:skyblue'>
+    <div style = 'margin-left:150px ; margin-top:50px'>
+        {% csrf_token %}
+    {{form | crispy}}
+
+    <button type="submit">REGISTER</button>
+    
+    </form>
+</div>
+</div>
+    {% endblock content %}

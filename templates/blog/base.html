@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %} WELCOME {% endblock title %}</title>
+	<link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}"> <!-- https://fontawesome.com/ -->
+	<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet"> <!-- https://fonts.google.com/ -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+    <link href="{% static 'css/cypher.css' %}" rel="stylesheet">
+
+</head>
+<body>
+	<header class="tm-header" id="tm-header">
+        <div class="tm-header-wrapper">
+            <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+            {% if user.is_authenticated %}
+            <div class="tm-site-header">
+                <img src="{{user.profile.image.url}}" alt="Image" class="rounded-circle img-thumbnail " style='margin:-10px 50px 20px 65px'>            
+                <a href='/account/profile' style='text-decoration:none; color:green'><h1 class="mt-0 ml-5">{{user.username | upper}}</h1></a>
+            </div>
+            {%else%}
+            <div class="tm-site-header">
+                <div class="mb-0 mx-5 tm-site-logo"><i class="fas fa-times fa-6x"></i></div>            
+                <h1 class="ml-0 ">OnEighTwo </h1>
+            </div>
+            {% endif %}
+            <nav class="tm-nav" id="tm-nav">            
+                <ul>
+                    <li class="tm-nav-item active "><a href="/" class="tm-nav-link">
+                        <i class="fas fa-home"></i>
+                        HOME
+                    </a></li>
+                    {% if user.is_authenticated %}
+                    <li class="tm-nav-item"><a href="{% url 'logout'%}" class="tm-nav-link">
+                        <i class="fas fa-sign-in-alt"></i>
+                        LOGOUT
+                    </a></li>
+                    {% else %}
+                    <li class="tm-nav-item "><a href="{% url 'register'%}" class="tm-nav-link">
+                        <i class="fas fa-sign"></i>
+                        REGISTER
+                    </a></li>
+                    <li class="tm-nav-item"><a href="{% url 'login'%}" class="tm-nav-link">
+                        <i class="fas fa-user"></i>
+                        LOGIN
+                    </a></li>
+                    {% endif %}
+                    <li class="tm-nav-item "><a href="{% url 'about'%}" class="tm-nav-link">
+                        <i class="fas fa-users"></i>
+                        ABOUT US
+                    </a></li>
+                    <li class="tm-nav-item"><a href="{% url 'contact'%}" class="tm-nav-link">
+                        <i class="far fa-comments"></i>
+                        Contact-Us
+                    </a></li>
+                </ul>
+            </nav>
+            <div class="tm-mb-65">
+                <a rel="nofollow" href="https://www.youtube.com/DineshKarki" target="_blank" class="tm-social-link">
+                    <i class="fab fa-youtube tm-social-icon"></i>
+                </a>
+                <a href="https://twitter.com/DineshBarker" class="tm-social-link" target="_blank">
+                    <i class="fab fa-twitter tm-social-icon"></i>
+                </a>
+                <a href="https://www.instagram.com/dns_182/" class="tm-social-link" target="_blank">
+                    <i class="fab fa-instagram tm-social-icon"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <main class="tm-main">
+            <!-- Search form -->
+            {% block search %}
+            <div class="row tm-row">
+                <div class="col-12">
+                    <form method="get" class="form-inline tm-mb-80 tm-search-form" action='/search'>                
+                        <input class="form-control tm-search-input" name="query" type="text" placeholder="Search..." aria-label="Search">
+                        <button class="tm-search-button" type="submit">
+                            <i class="fas fa-search tm-search-icon" aria-hidden="true"></i>
+                        </button>                                
+                    </form>
+                </div>                
+            </div> 
+            {% endblock search %}
+
+
+            {% block content %}
+            {% endblock content %}  
+            
+            {% block footer%}
+            <footer class="row tm-row">
+                <hr class="col-12">
+                <div class="col-md-6 col-12 tm-color-gray tm-copyright text-center">
+                    Copyright 2022 -- OnEighTwo --
+                </div>
+            </footer>
+        </main>
+    </div>
+    {% endblock %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/templatemo-script.js' %}"></script>
+</body>
+</html>
